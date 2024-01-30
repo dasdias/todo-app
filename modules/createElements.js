@@ -15,10 +15,13 @@ export const createMainTitle = () => {
 };
 
 // создаём кнопки
-const createBtn = (nameClass, content, typeBtn = false) => {
+const createBtn = (nameClass, content, typeBtn = false, dataAttr = false) => {
   const btn = document.createElement('button');
   if (typeBtn) {
     btn.setAttribute('type', typeBtn);
+  }
+  if (dataAttr) {
+    btn.dataset.id = dataAttr;
   }
   btn.textContent = content;
   btn.className = nameClass;
@@ -52,12 +55,18 @@ export const createWrapTabl = (nameclass) => {
   return tableWrap;
 };
 
-// создаём тег td
-const createTdThTag = (tagName, content = false, nameClass = false,
-    dataAttr = false) => {
+/**  Cоздаём тег
+  * @param {string} tagName - название тега
+  * @param {string}  content - текст
+  * @param {string} nameClass - класс если нужен
+  * @param {string} dataAttr - Data атрибут
+  * @return {string} - возвращаем тег
+*/
+const createTdThTag = (tagName, content = false,
+    nameClass = false, dataAttr = false) => {
   const tag = document.createElement(tagName);
   if (dataAttr) {
-    tag.data.id = dataAttr;
+    tag.dataset.id = dataAttr;
   }
   if (nameClass) {
     tag.className = nameClass;
@@ -69,25 +78,33 @@ const createTdThTag = (tagName, content = false, nameClass = false,
 };
 
 // создаём ряд в таблице
-export const createRow = (classTr = false,
+export const createRow = (classTr = false, index,
     {
-      num,
-      taskName,
-      getStatus,
-      nameClass = false,
-      dataAttr = false,
+      id,
+      task,
+      taskStatus,
     }) => {
   const tr = document.createElement('tr');
   if (classTr) {
     tr.className = classTr;
   }
-  const number = createTdThTag('td', num);
-  const task = createTdThTag('td', taskName, nameClass);
-  const status = createTdThTag('td', getStatus);
-  const btnDel = createBtn('btn btn-danger', 'Удалить');
-  const btnComplite = createBtn('btn btn-success', 'Завершить');
-  tr.append(number, task, status, btnDel, btnComplite);
-  return tr;
+  if (taskStatus) {
+    tr.classList.remove('table-light');
+    tr.classList.add('table-success');
+  }
+  const numberTd = createTdThTag('td', index);
+  const taskTd = createTdThTag('td', task, 'task');
+  const statusTd = createTdThTag('td', taskStatus ? 'Выполнена' : 'В процессе');
+  const tdBtn = createTdThTag('td');
+  const btnDel = createBtn('remove btn btn-danger me-2', 'Удалить', false, id);
+  const btnComplite = createBtn('btn btn-success', 'Завершить', false, id);
+  tdBtn.append(btnDel, btnComplite);
+  tr.append(numberTd, taskTd, statusTd, tdBtn);
+  return {
+    tr,
+    btnDel,
+    btnComplite,
+  };
 };
 
 // создаём таблицу
