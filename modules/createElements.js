@@ -15,7 +15,7 @@ export const createMainTitle = () => {
 };
 
 // создаём кнопки
-const createBtn = (nameClass, content, typeBtn = false, dataAttr = false) => {
+export const createBtn = (nameClass, content, typeBtn = false, dataAttr = false) => {
   const btn = document.createElement('button');
   if (typeBtn) {
     btn.setAttribute('type', typeBtn);
@@ -97,7 +97,7 @@ export const createRow = (classTr = false, index,
   const statusTd = createTdThTag('td', taskStatus ? 'Выполнена' : 'В процессе');
   const tdBtn = createTdThTag('td');
   const btnDel = createBtn('remove btn btn-danger me-2', 'Удалить', false, id);
-  const btnComplite = createBtn('btn btn-success', 'Завершить', false, id);
+  const btnComplite = createBtn('edit btn btn-success', 'Завершить', false, id);
   tdBtn.append(btnDel, btnComplite);
   tr.append(numberTd, taskTd, statusTd, tdBtn);
   return {
@@ -139,7 +139,7 @@ export const createForm = () => {
 
   labelElem.append(inputElem);
   form.append(labelElem, btnSubmit, btnReset);
-  return form;
+  return {form, inputElem};
 };
 
 
