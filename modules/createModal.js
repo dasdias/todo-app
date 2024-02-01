@@ -29,13 +29,14 @@ export const createModal = (elementsDom) => {
   const input = document.createElement('input');
   input.classList.add('me-3');
   input.id = 'username';
+  input.classList.add('form-control');
+  input.setAttribute('type', 'text');
   const wrap = document.createElement('div');
   wrap.classList.add('d-flex');
   const btn = createBtn('btn btn-primary', 'Войти', 'submit');
   wrap.append(input, btn);
   modalForm.append(label, wrap);
   modalWrap.append(modalForm);
-  input.classList.add('form-control');
   elementsDom.append(modalWrap);
-  return input;
+  return {input, modalForm, modalWrap};
 };

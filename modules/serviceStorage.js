@@ -1,10 +1,11 @@
-const getStorage = (key) => {
+export const getStorage = (key) => {
   const dataStorage = JSON.parse(localStorage.getItem(key)) ?
       JSON.parse(localStorage.getItem(key)) : [];
   return dataStorage;
 };
 
-const setStorage = (key, obj) => {
+export const setStorage = (key, obj) => {
+  console.log('obj: ', obj);
   let storageData = [];
   if (getStorage(key).length !== 0) {
     storageData = [...getStorage(key), obj];
@@ -15,7 +16,7 @@ const setStorage = (key, obj) => {
   }
 };
 
-const removeStorage = (phoneNum) => {
+export const removeStorage = (phoneNum) => {
   const store = getStorage('userData');
   if (store.length !== 0) {
     const newMass = store.filter((item) => item.phone !== phoneNum);

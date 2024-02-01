@@ -1,8 +1,10 @@
-import {elementsDom} from '../scripts/index.js';
+import {getDomElements} from './getDomElements.js';
+
+const {appContainer} = getDomElements();
 
 // добавляем классы бутстрап для выравнивания к главному контейнеру
 export const addStyleAppContainer = () => {
-  elementsDom.appContainer.classList.
+  appContainer.classList.
     add('vh-100', 'w-100', 'd-flex', 'align-items-center',
       'justify-content-center', 'flex-column');
 };
@@ -15,7 +17,8 @@ export const createMainTitle = () => {
 };
 
 // создаём кнопки
-export const createBtn = (nameClass, content, typeBtn = false, dataAttr = false) => {
+export const createBtn = (nameClass, content,
+    typeBtn = false, dataAttr = false) => {
   const btn = document.createElement('button');
   if (typeBtn) {
     btn.setAttribute('type', typeBtn);
