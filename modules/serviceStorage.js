@@ -5,7 +5,6 @@ export const getStorage = (key) => {
 };
 
 export const setStorage = (key, obj) => {
-  console.log('obj: ', obj);
   let storageData = [];
   if (getStorage(key).length !== 0) {
     storageData = [...getStorage(key), obj];
@@ -25,17 +24,15 @@ export const removeTaskStorage = (key, taskId) => {
   }
   return;
 };
-export const editTaskStorage = (key, taskId) => {
+export const endTaskStorage = (key, taskId) => {
   const store = getStorage(key);
   if (store.length !== 0) {
     const newMass = store.map((item) => {
-      console.log('item: ', item.id);
       if (item.id === taskId) {
         item.taskStatus = !item.taskStatus;
       }
       return item;
     });
-    console.log('newMass: ', newMass);
     localStorage.removeItem(key);
     localStorage.setItem(key, JSON.stringify(newMass));
   }

@@ -76,6 +76,7 @@ const renderForm = (mainContainer, tbody, userName = '') => {
     setStorage(userName, {id: unicId, task: userTask, taskStatus: false});
     const data = getStorage(userName);
     renderTable(data, tbody);
+    btnSubmit.setAttribute('disabled', true);
     form.reset();
   });
 };
@@ -90,7 +91,7 @@ export const renderElements = (mainContainer, userName) => {
 
   tbody.addEventListener('click', (e) => {
     const storData = getStorage(userName);
-    finishTask(e, userName);
+    finishTask(e, userName, tbody);
     removeTask(e, storData, userName, tbody);
   });
   wrap.append(table);
