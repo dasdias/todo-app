@@ -16,12 +16,12 @@ export const setStorage = (key, obj) => {
   }
 };
 
-export const removeStorage = (phoneNum) => {
-  const store = getStorage('userData');
+export const removeTaskStorage = (key, taskId) => {
+  const store = getStorage(key);
   if (store.length !== 0) {
-    const newMass = store.filter((item) => item.phone !== phoneNum);
-    localStorage.removeItem('userData');
-    localStorage.setItem('userData', JSON.stringify(newMass));
+    const newMass = store.filter((item) => item.id !== taskId);
+    localStorage.removeItem(key);
+    localStorage.setItem(key, JSON.stringify(newMass));
   }
   return;
 };

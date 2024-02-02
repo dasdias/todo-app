@@ -1,16 +1,19 @@
 import {renderTable} from './render.js';
-import {getStorage, setStorage} from './serviceStorage.js';
+import {getStorage, removeTaskStorage, setStorage} from './serviceStorage.js';
 
 // удаляем задачу
 export const removeTask = (e, data, userName, tbody) => {
-  const storData = getStorage(userName);
   const target = e.target;
   if (target.closest('.remove')) {
-    console.log('target: ', +target.dataset.id);
-    const newData = storData.filter((el) => el.id !== +target.dataset.id);
-    console.log('newData: ', newData);
-    setStorage(userName, [...newData]);
-    renderTable(newData, tbody);
+    // console.log('target: ', +target.dataset.id);
+    const currentTaskId = +target.dataset.id;
+    // const newData = storData.filter((el) => el.id !== +target.dataset.id);
+    // console.log('newData: ', newData);
+    // setStorage(userName, newData);
+    console.log(currentTaskId);
+    removeTaskStorage(userName, currentTaskId);
+    const storData = getStorage(userName);
+    renderTable(storData, tbody);
   }
 };
 
