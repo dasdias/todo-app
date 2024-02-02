@@ -25,3 +25,19 @@ export const removeTaskStorage = (key, taskId) => {
   }
   return;
 };
+export const editTaskStorage = (key, taskId) => {
+  const store = getStorage(key);
+  if (store.length !== 0) {
+    const newMass = store.map((item) => {
+      console.log('item: ', item.id);
+      if (item.id === taskId) {
+        item.taskStatus = !item.taskStatus;
+      }
+      return item;
+    });
+    console.log('newMass: ', newMass);
+    localStorage.removeItem(key);
+    localStorage.setItem(key, JSON.stringify(newMass));
+  }
+  return;
+};

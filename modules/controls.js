@@ -1,16 +1,12 @@
 import {renderTable} from './render.js';
-import {getStorage, removeTaskStorage, setStorage} from './serviceStorage.js';
+import {editTaskStorage, getStorage, removeTaskStorage, setStorage}
+  from './serviceStorage.js';
 
 // удаляем задачу
 export const removeTask = (e, data, userName, tbody) => {
   const target = e.target;
   if (target.closest('.remove')) {
-    // console.log('target: ', +target.dataset.id);
     const currentTaskId = +target.dataset.id;
-    // const newData = storData.filter((el) => el.id !== +target.dataset.id);
-    // console.log('newData: ', newData);
-    // setStorage(userName, newData);
-    console.log(currentTaskId);
     removeTaskStorage(userName, currentTaskId);
     const storData = getStorage(userName);
     renderTable(storData, tbody);
@@ -18,10 +14,13 @@ export const removeTask = (e, data, userName, tbody) => {
 };
 
 // редактируем задачу
-export const editTask = (e, data) => {
+export const finishTask = (e, userName) => {
   const target = e.target;
-  if (target.closest('.edit')) {
-    console.log('editTask');
+  if (target.closest('.endtask')) {
+    // const newData = storData.filter((el) => el.id !== +target.dataset.id);
+    const currentTaskId = +target.dataset.id;
+    editTaskStorage(userName, currentTaskId);
+    console.log('currentTaskId: ', currentTaskId);
   }
 };
 

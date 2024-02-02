@@ -18,13 +18,16 @@ export const createMainTitle = () => {
 
 // создаём кнопки
 export const createBtn = (nameClass, content,
-    typeBtn = false, dataAttr = false) => {
+    typeBtn = false, dataAttr = false, attr = false) => {
   const btn = document.createElement('button');
   if (typeBtn) {
     btn.setAttribute('type', typeBtn);
   }
   if (dataAttr) {
     btn.dataset.id = dataAttr;
+  }
+  if (attr) {
+    btn.setAttribute(attr.key, attr.val);
   }
   btn.textContent = content;
   btn.className = nameClass;
@@ -92,15 +95,20 @@ export const createRow = (classTr = false, index,
     tr.className = classTr;
   }
   if (taskStatus) {
+    tr.classList.add('table-success'); // table-success
+  }
+  if (taskStatus) {
     tr.classList.remove('table-light');
     tr.classList.add('table-success');
   }
   const numberTd = createTdThTag('td', index);
   const taskTd = createTdThTag('td', task, 'task');
   const statusTd = createTdThTag('td', taskStatus ? 'Выполнена' : 'В процессе');
+  // statusTd.classList.add(taskStatus ? '' : '');
   const tdBtn = createTdThTag('td');
   const btnDel = createBtn('remove btn btn-danger me-2', 'Удалить', false, id);
-  const btnComplite = createBtn('edit btn btn-success', 'Завершить', false, id);
+  const btnComplite =
+    createBtn('endtask btn btn-success', 'Завершить', false, id);
   tdBtn.append(btnDel, btnComplite);
   tr.append(numberTd, taskTd, statusTd, tdBtn);
   return {
@@ -135,14 +143,15 @@ export const createTable = () => {
 export const createForm = () => {
   const form = document.createElement('form');
   form.classList.add('d-flex', 'align-items-center', 'mb-3');
-  const btnSubmit = createBtn('btn btn-primary me-3', 'Сохранить', 'submit');
-  const btnReset = createBtn('btn btn-warning', 'Очистить', 'reset');
+  const btnSubmit = createBtn('btn btn-primary me-3',
+    'Сохранить', 'submit', '', {key: 'disabled', val: 'true'});
+  const btnReset = createBtn('btn btn-warning', 'Очистить', 'reset', 'reset');
   const labelElem = createLabel('form-group me-3 mb-0');
   const inputElem = createInput('form-control', 'text', 'Ввести задачу');
 
   labelElem.append(inputElem);
   form.append(labelElem, btnSubmit, btnReset);
-  return {form, inputElem};
+  return {form, inputElem, btnReset, btnSubmit};
 };
 
 

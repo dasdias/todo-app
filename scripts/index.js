@@ -16,12 +16,10 @@ const init = () => {
     userName = userName.toLowerCase();
     if (!userName) return;
     storData = getStorage(userName);
-    console.log('storeData: ', storData.length);
     modalWrap.classList.add('d-none');
     if (+storData.length <= 0) {
       renderElements(appContainer, userName);
     } else {
-      console.log('storData: ', storData);
       const {tbody} = renderElements(appContainer, userName);
       renderTable(storData, tbody);
     }

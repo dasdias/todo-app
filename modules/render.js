@@ -1,7 +1,7 @@
 import {
   removeTask,
-  editTask,
   checkValidate,
+  finishTask,
 } from './controls.js';
 import {
   createForm,
@@ -44,14 +44,17 @@ export const renderTable = (data, tableElem) => {
 const renderForm = (mainContainer, tbody, userName = '') => {
   let unicId = '';
   // {id: unicId, task: 'Купить Хлеб', taskStatus: true};
-  const {form, inputElem} = createForm();
+  const {form, inputElem, btnReset, btnSubmit} = createForm();
   let userTask = '';
   mainContainer.append(form);
+  btnReset.addEventListener('click', (e) => {
+    btnSubmit.setAttribute('disabled', true);
+  });
   inputElem.addEventListener('input', (e) => {
     const target = e.target;
     checkValidate(target);
   });
-  inputElem.addEventListener('keyup', (e) => {
+  inputElem.addEventListener('keypres', (e) => {
     const keyCOde = e.code;
     if (keyCOde === 'Enter') {
       userTask = checkValidate(inputElem);
@@ -87,7 +90,7 @@ export const renderElements = (mainContainer, userName) => {
 
   tbody.addEventListener('click', (e) => {
     const storData = getStorage(userName);
-    // editTask(e, data, userName);
+    finishTask(e, userName);
     removeTask(e, storData, userName, tbody);
   });
   wrap.append(table);
