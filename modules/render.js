@@ -2,6 +2,7 @@ import {
   removeTask,
   checkValidate,
   finishTask,
+  editTask,
 } from './controls.js';
 import {
   createForm,
@@ -93,6 +94,7 @@ export const renderElements = (mainContainer, userName) => {
     const storData = getStorage(userName);
     finishTask(e, userName, tbody);
     removeTask(e, storData, userName, tbody);
+    editTask(e, userName, tbody);
   });
   wrap.append(table);
   mainContainer.append(wrap);

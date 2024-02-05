@@ -108,13 +108,16 @@ export const createRow = (classTr = false, index,
   const tdBtn = createTdThTag('td');
   const btnDel = createBtn('remove btn btn-danger me-2', 'Удалить', false, id);
   const btnComplite =
-    createBtn('endtask btn btn-success', 'Завершить', false, id);
-  tdBtn.append(btnDel, btnComplite);
+    createBtn('endtask btn btn-success me-2', 'Завершить', false, id);
+  const btnEdit =
+    createBtn('edittask btn btn-info', 'Редактировать', '', id);
+  tdBtn.append(btnDel, btnComplite, btnEdit);
   tr.append(numberTd, taskTd, statusTd, tdBtn);
   return {
     tr,
     btnDel,
     btnComplite,
+    btnEdit,
   };
 };
 

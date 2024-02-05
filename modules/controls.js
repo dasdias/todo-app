@@ -2,6 +2,7 @@ import {renderTable} from './render.js';
 import {endTaskStorage, getStorage, removeTaskStorage, setStorage}
   from './serviceStorage.js';
 
+
 // удаляем задачу
 export const removeTask = (e, data, userName, tbody) => {
   const target = e.target;
@@ -22,6 +23,27 @@ export const finishTask = (e, userName, tbody) => {
     endTaskStorage(userName, currentTaskId);
     const storData = getStorage(userName);
     renderTable(storData, tbody);
+  }
+};
+
+// редактируем задачу
+export const editTask = (e, userName, tbody) => {
+  const target = e.target;
+  if (target.closest('.edittask')) {
+    target.textContent = 'Сохранить';
+    target.classList.remove('btn-info');
+    target.classList.add('btn-primary');
+    const rowElem = target.closest('tr');
+    const taskField = rowElem.querySelector('.task');
+    taskField.setAttribute('contenteditable', true);
+    taskField.focus();
+
+
+    console.log('taskField: ', taskField);
+
+    const currentTaskId = +target.dataset.id;
+    const storData = getStorage(userName);
+    // renderTable(storData, tbody);
   }
 };
 
